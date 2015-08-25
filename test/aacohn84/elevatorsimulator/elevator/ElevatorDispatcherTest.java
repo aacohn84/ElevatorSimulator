@@ -1,7 +1,12 @@
-package aacohn84.elevatorsimulator;
+package aacohn84.elevatorsimulator.elevator;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import aacohn84.elevatorsimulator.SimMode;
+import aacohn84.elevatorsimulator.SimulatorConfig;
+import aacohn84.elevatorsimulator.elevator.Elevator;
+import aacohn84.elevatorsimulator.elevator.ElevatorDispatcher;
 
 public class ElevatorDispatcherTest {
     @Test

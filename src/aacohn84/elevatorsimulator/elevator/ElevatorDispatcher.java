@@ -1,8 +1,9 @@
-package aacohn84.elevatorsimulator;
+package aacohn84.elevatorsimulator.elevator;
 
+import aacohn84.elevatorsimulator.SimulatorConfig;
 import aacohn84.elevatorsimulator.event.EventListener;
 
-class ElevatorDispatcher {
+public class ElevatorDispatcher {
     Elevator elevator;
     SimulatorConfig config;
     ArrivalListener arrivalListener = new ArrivalListener();
@@ -68,7 +69,7 @@ class ElevatorDispatcher {
         elevator.setIdle();
     }
 
-    synchronized void shutdown() {
+    public synchronized void shutdown() {
         elevator.shutdown();
     }
 

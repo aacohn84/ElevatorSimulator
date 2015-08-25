@@ -1,4 +1,4 @@
-package aacohn84.elevatorsimulator;
+package aacohn84.elevatorsimulator.elevator;
 
 public class FloorNumberOutOfBoundsException extends IllegalArgumentException {
     public FloorNumberOutOfBoundsException(int floorNumber, int numFloors) {

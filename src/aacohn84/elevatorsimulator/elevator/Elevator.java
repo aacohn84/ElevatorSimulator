@@ -1,11 +1,13 @@
-package aacohn84.elevatorsimulator;
+package aacohn84.elevatorsimulator.elevator;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
+import aacohn84.elevatorsimulator.SimMode;
+import aacohn84.elevatorsimulator.SimulatorConfig;
 import aacohn84.elevatorsimulator.event.Event;
 
-class Elevator {
+public class Elevator {
     int currentFloor = 1;
     int destinationFloor = 1;
     int direction = 0; // idle
@@ -16,7 +18,7 @@ class Elevator {
     Event<Elevator> elevatorArrived = new Event<>();
     int timeScale = 1;
 
-    Elevator(SimulatorConfig config) {
+    public Elevator(SimulatorConfig config) {
         this.config = config;
         this.floorSelectionToggles = new boolean[config.numFloors];
         if (config.simMode.equals(SimMode.REAL_TIME)) {
