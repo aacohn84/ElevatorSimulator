@@ -60,6 +60,10 @@ class Elevator {
         return floorSelectionToggles[floor - 1];
     }
 
+    synchronized void shutdown() {
+        elevatorTaskTimer.cancel();
+    }
+
     class GoToFloorTask extends TimerTask {
         final long timeToDestination;
 

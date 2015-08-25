@@ -68,6 +68,10 @@ class ElevatorDispatcher {
         elevator.setIdle();
     }
 
+    synchronized void shutdown() {
+        elevator.shutdown();
+    }
+
     private class ArrivalListener implements EventListener<Elevator> {
         @Override
         public void update(Elevator elevator) {

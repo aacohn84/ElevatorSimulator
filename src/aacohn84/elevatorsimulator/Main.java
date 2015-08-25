@@ -14,29 +14,7 @@ public class Main {
         ElevatorDispatcher dispatcher = new ElevatorDispatcher(config, new Elevator(config));
 
         if (config.simMode.equals(SimMode.REAL_TIME)) {
-            print("The elevator system will now accept your requests.\n" +
-                  "Enter a floor number at any time to issue a request.\n" +
-                  "When you are finished, enter 'q' to quit.\n" +
-                  "\n" +
-                  "> ");
-
-            String input = stdin.readLine();
-            while (!input.equalsIgnoreCase("q")) {
-                Integer floor = parseInt(input);
-                if (floor == null) {
-                    print("\"" + input + "\" is not a valid floor number\n");
-                } else {
-                    if (floor > 0 && floor < config.numFloors) {
-                        dispatcher.panelRequest(floor);
-                    } else {
-                        print(floor + " cannot be reached by this elevator. " +
-                              "choose a floor between 1 and " + config.numFloors + "\n");
-                    }
-                }
-                print("\n\n>");
-                input = stdin.readLine();
-            }
-            print("Input closed. The program will terminate after the simulation is complete.\n");
+            runRealTimeSim(stdin, config, dispatcher);
         }
     }
 
@@ -75,9 +53,37 @@ public class Main {
         print("Simulation mode: " + simMode.toString() + "\n");
         print("Number of floors: " + numFloors + "\n");
         print("Time between floors: " + travelTime + "s\n");
-        print("Time doors stay open: " + doorTime + "s\n");
+        print("Time doors stay open: " + doorTime + "s\n\n");
 
         return new SimulatorConfig(travelTime, doorTime, numFloors, simMode);
+    }
+
+    private static void runRealTimeSim(BufferedReader stdin, SimulatorConfig config, ElevatorDispatcher dispatcher)
+            throws IOException {
+        print("The elevator system will now accept your requests.\n" +
+              "Enter a floor number at any time to issue a request.\n" +
+              "When you are finished, enter 'q' to quit.\n" +
+              "\n" +
+              "> ");
+
+        String input = stdin.readLine();
+        while (!input.equalsIgnoreCase("q")) {
+            Integer floor = parseInt(input);
+            if (floor == null) {
+                print("\"" + input + "\" is not a valid floor number\n");
+            } else {
+                if (floor > 0 && floor < config.numFloors) {
+                    dispatcher.panelRequest(floor);
+                } else {
+                    print(floor + " cannot be reached by this elevator. " +
+                          "choose a floor between 1 and " + config.numFloors + "\n");
+                }
+            }
+            print("\n>");
+            input = stdin.readLine();
+        }
+        dispatcher.shutdown();
+        print("Input closed. Elevator will shut down after it finishes with its current request.\n");
     }
 
     public static void print(String msg) {
