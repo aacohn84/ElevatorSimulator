@@ -7,6 +7,40 @@ import java.io.InputStreamReader;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+
+        SimulatorConfig config = getSimulatorConfig(stdin);
+
+        ElevatorDispatcher dispatcher = new ElevatorDispatcher(config, new Elevator());
+
+        if (config.simMode.equals(SimMode.REAL_TIME)) {
+            print("The elevator system will now accept your requests.\n" +
+                  "Enter a floor number at any time to issue a request.\n" +
+                  "When you are finished, enter 'q' to quit.\n" +
+                  "\n" +
+                  "> ");
+
+            String input = stdin.readLine();
+            while (!input.equalsIgnoreCase("q")) {
+                Integer floor = parseInt(input);
+                if (floor == null) {
+                    print("\"" + input + "\" is not a valid floor number\n");
+                } else {
+                    if (floor > 0 && floor < config.numFloors) {
+                        dispatcher.panelRequest(floor);
+                    } else {
+                        print(floor + " cannot be reached by this elevator. " +
+                              "choose a floor between 1 and " + config.numFloors + "\n");
+                    }
+                }
+                print("\n\n>");
+                input = stdin.readLine();
+            }
+            print("Input closed. The program will terminate after the simulation is complete.\n");
+        }
+    }
+
+    private static SimulatorConfig getSimulatorConfig(BufferedReader stdin) throws IOException {
         print("Welcome to Elevator Simulator. Please choose a simulation mode:\n" +
               "\n" +
               "R - Real-time - Make requests and see how the elevator system reacts in real time.\n" +
@@ -15,8 +49,6 @@ public class Main {
               "                      and get the results immediately.\n" +
               "\n" +
               "> ");
-
-        BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
         SimMode simMode = null;
         String input = stdin.readLine();
         while (!input.equalsIgnoreCase("C") && !input.equalsIgnoreCase("R")) {
@@ -44,10 +76,17 @@ public class Main {
         print("Number of floors: " + numFloors + "\n");
         print("Time between floors: " + travelTime + "s\n");
         print("Time doors stay open: " + doorTime + "s\n");
+
+        return new SimulatorConfig(travelTime, doorTime, numFloors, simMode);
+    }
+
+    public static void print(String msg) {
+        System.out.print(msg);
     }
 
     private static int getIntInRange(BufferedReader stdin, String prompt, int min, int max) throws IOException {
-        print(prompt + " (" + min + '-' + max + ")\n\n" +
+        print(prompt + " (" + min + '-' + max + ")\n" +
+              "\n" +
               "> ");
         Integer num = getInteger(stdin);
         while (num == null || num < min || num > max) {
@@ -59,14 +98,14 @@ public class Main {
 
     private static Integer getInteger(BufferedReader stdin) throws IOException {
         String input = stdin.readLine();
+        return parseInt(input);
+    }
+
+    private static Integer parseInt(String input) {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException ignored) {
             return null;
         }
-    }
-
-    public static void print(String msg) {
-        System.out.print(msg);
     }
 }
