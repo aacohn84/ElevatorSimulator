@@ -11,7 +11,6 @@ class ElevatorDispatcher {
         this.config = config;
         this.elevator = elevator;
 
-        elevator.connectDispatcher(this);
         elevator.elevatorArrived.attach(arrivalListener);
     }
 

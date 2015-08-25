@@ -12,14 +12,12 @@ class Elevator {
     boolean[] floorSelectionToggles;
     DoorState doorState = DoorState.CLOSED;
     SimulatorConfig config;
-    ElevatorDispatcher dispatcher;
     Timer elevatorTaskTimer = new Timer();
     Event<Elevator> elevatorArrived = new Event<>();
     int timeScale = 1;
 
-    public Elevator(ElevatorDispatcher dispatcher) {
-        this.dispatcher = dispatcher;
-        this.config = dispatcher.config;
+    Elevator(SimulatorConfig config) {
+        this.config = config;
         this.floorSelectionToggles = new boolean[config.numFloors];
         if (config.simMode.equals(SimMode.REAL_TIME)) {
             timeScale = 1000; // TimerTask delays will be in seconds instead of milliseconds
@@ -62,8 +60,6 @@ class Elevator {
         return floorSelectionToggles[floor - 1];
     }
 
-    static class GoToFloorTask extends TimerTask {
-        final Elevator elevator;
     class GoToFloorTask extends TimerTask {
         final long timeToDestination;
 

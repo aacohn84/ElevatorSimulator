@@ -11,7 +11,7 @@ public class Main {
 
         SimulatorConfig config = getSimulatorConfig(stdin);
 
-        ElevatorDispatcher dispatcher = new ElevatorDispatcher(config, new Elevator());
+        ElevatorDispatcher dispatcher = new ElevatorDispatcher(config, new Elevator(config));
 
         if (config.simMode.equals(SimMode.REAL_TIME)) {
             print("The elevator system will now accept your requests.\n" +
