@@ -5,8 +5,6 @@ import org.junit.Test;
 
 import aacohn84.elevatorsimulator.SimMode;
 import aacohn84.elevatorsimulator.SimulatorConfig;
-import aacohn84.elevatorsimulator.elevator.Elevator;
-import aacohn84.elevatorsimulator.elevator.FloorNumberOutOfBoundsException;
 import aacohn84.elevatorsimulator.event.EventListener;
 
 public class ElevatorTest {

@@ -1,10 +1,10 @@
 package aacohn84.elevatorsimulator;
 
 public final class SimulatorConfig {
-    final int travelTime;
-    final int doorTime;
-    final int numFloors;
-    final SimMode simMode;
+    public final int travelTime;
+    public final int doorTime;
+    public final int numFloors;
+    public final SimMode simMode;
 
     public SimulatorConfig(int travelTime, int doorTime, int numFloors, SimMode simMode) {
         this.travelTime = travelTime;
