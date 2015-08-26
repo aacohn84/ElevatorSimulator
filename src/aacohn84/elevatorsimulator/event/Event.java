@@ -14,7 +14,7 @@ public class Event<Args> {
         listeners.add(listener);
     }
 
-    public void notify(Args args) {
+    public void notifyListeners(Args args) {
         for (EventListener<Args> listener : listeners) {
             listener.update(args);
         }

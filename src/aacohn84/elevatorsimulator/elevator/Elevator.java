@@ -83,7 +83,7 @@ public class Elevator {
             currentFloor = destinationFloor;
             System.out.println("arrived at " + currentFloor);
             toggleFloorSelectionOff(currentFloor);
-            elevatorArrived.notify(Elevator.this);
+            elevatorArrived.notifyListeners(Elevator.this);
         }
     }
 }
