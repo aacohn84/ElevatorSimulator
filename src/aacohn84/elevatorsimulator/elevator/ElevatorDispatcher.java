@@ -43,7 +43,8 @@ public class ElevatorDispatcher {
         } else {
             elevator.toggleFloorSelection(floor);
             String toggleState = elevator.isFloorSelected(floor) ? "ON" : "OFF";
-            System.out.println("transiting - toggle " + floor + " " + toggleState);
+            System.out.println("transiting to " + elevator.destinationFloor +
+                               " - toggle " + floor + " " + toggleState);
         }
     }
 
