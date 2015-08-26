@@ -22,50 +22,24 @@ public class Main {
     }
 
     private static SimulatorConfig getSimulatorConfig(BufferedReader stdin) throws IOException {
-        print("Welcome to Elevator Simulator. Please choose a simulation mode:\n" +
-              "\n" +
-              "R - Real-time - Make requests and see how the elevator system reacts in real time.\n" +
-              "\n" +
-              "C - Compressed-time - Specify a sequence of requests for the elevator system to process\n" +
-              "                      and get the results immediately.\n" +
-              "\n" +
-              "> ");
-        SimMode simMode = null;
-        String input = stdin.readLine();
-        while (!input.equalsIgnoreCase("C") && !input.equalsIgnoreCase("R")) {
-            print("Please enter 'R' for real-time mode, or 'C' for compressed-time mode.\n\n" +
-                  "> ");
-            input = stdin.readLine();
-        }
-        switch (input.toLowerCase()) {
-        case "c":
-            simMode = SimMode.COMPRESSED_TIME;
-            break;
-        case "r":
-            simMode = SimMode.REAL_TIME;
-            break;
-        default:
-            System.err.println("Invalid simulation mode.");
-            System.exit(1);
-        }
+        print("Welcome to Elevator Simulator. Let's do a little configuration.\n\n");
 
         int numFloors = getIntInRange(stdin, "How many floors in this building?", 2, 16);
         int travelTime = getIntInRange(stdin, "How much time traveling between floors (in seconds)?", 5, 10);
-        int doorTime = getIntInRange(stdin, "How long do the doors remain open (in seconds)?", 5, 10);
 
-        print("Simulation mode: " + simMode.toString() + "\n");
-        print("Number of floors: " + numFloors + "\n");
-        print("Time between floors: " + travelTime + "s\n");
-        print("Time doors stay open: " + doorTime + "s\n\n");
+        print("Simulation mode: " + SimMode.REAL_TIME.toString() + "\n" +
+              "Number of floors: " + numFloors + "\n" +
+              "Time between floors: " + travelTime + "s\n\n");
 
-        return new SimulatorConfig(travelTime, doorTime, numFloors, simMode);
+        return new SimulatorConfig(travelTime, numFloors, SimMode.REAL_TIME);
     }
 
     private static void runRealTimeSim(BufferedReader stdin, SimulatorConfig config, ElevatorDispatcher dispatcher)
             throws IOException {
-        print("The elevator system will now accept your requests.\n" +
-              "Enter a floor number at any time to issue a request.\n" +
-              "When you are finished, enter 'q' to quit.\n" +
+        print("All set! Enter a floor number at any time to visit that floor. You can enter floor numbers while the\n" +
+              "elevator is in transit. You can cancel a request by repeating it before the elevator executes it.\n" +
+              "\n" +
+              "Enter 'q' to quit whenever you're finished.\n" +
               "\n" +
               "> ");
 

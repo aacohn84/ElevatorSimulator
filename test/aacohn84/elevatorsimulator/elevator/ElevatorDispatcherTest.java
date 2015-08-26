@@ -9,7 +9,7 @@ import aacohn84.elevatorsimulator.SimulatorConfig;
 public class ElevatorDispatcherTest {
     @Test
     public void sendNextRequest_oneFloorToggled_shouldGoToThatFloor() throws InterruptedException {
-        SimulatorConfig config = new SimulatorConfig(5, 5, 5, SimMode.COMPRESSED_TIME);
+        SimulatorConfig config = new SimulatorConfig(5, 5, SimMode.COMPRESSED_TIME);
         Elevator elevator = new Elevator(config);
         ElevatorDispatcher dispatcher = new ElevatorDispatcher(config, elevator);
         elevator.direction = 1;

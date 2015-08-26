@@ -12,7 +12,6 @@ public class Elevator {
     int destinationFloor = 1;
     int direction = 0; // idle
     boolean[] floorSelectionToggles;
-    DoorState doorState = DoorState.CLOSED;
     SimulatorConfig config;
     Timer elevatorTaskTimer = new Timer();
     Event<Elevator> elevatorArrived = new Event<>();

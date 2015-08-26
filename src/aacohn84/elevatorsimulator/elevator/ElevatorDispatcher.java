@@ -36,13 +36,14 @@ public class ElevatorDispatcher {
         if (floor < 1 || floor > config.numFloors) {
             throw new FloorNumberOutOfBoundsException(floor, config.numFloors);
         }
-        System.out.println("request for " + floor);
         if (elevator.isIdle()) {
-            System.out.println("idle - send elevator to " + floor);
+            System.out.println("idle - go to " + floor);
+            elevator.toggleFloorSelection(floor);
             elevator.goToFloor(floor);
         } else {
-            System.out.println("transiting - toggle " + floor);
             elevator.toggleFloorSelection(floor);
+            String toggleState = elevator.isFloorSelected(floor) ? "ON" : "OFF";
+            System.out.println("transiting - toggle " + floor + " " + toggleState);
         }
     }
 
@@ -65,7 +66,7 @@ public class ElevatorDispatcher {
             }
         }
         // no floors selected, set the elevator to idle
-        System.out.println("set idle");
+        System.out.println("idle");
         elevator.setIdle();
     }
 
